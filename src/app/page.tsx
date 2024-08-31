@@ -2,9 +2,10 @@
 
 import '@reach/dialog/styles.css'
 import { useState } from 'react'
-import { Dialog } from '@reach/dialog'
 import Logo from '@/components/logo'
 import AuthForm from '@/components/auth-form'
+import Button from '@/components/button'
+import Dialog from '@reach/dialog'
 
 type ModalState = 'login' | 'register' | 'none'
 
@@ -26,21 +27,29 @@ export default function Home() {
       <Logo width={80} height={80} />
       <h1>Bookshelf</h1>
       <div>
-        <button onClick={() => setOpenModal('login')}>Login</button>
+        <Button intent="primary" onClick={() => setOpenModal('login')}>
+          Login
+        </Button>
       </div>
       <div>
-        <button onClick={() => setOpenModal('register')}>Register</button>
+        <Button intent="secondary" onClick={() => setOpenModal('register')}>
+          Register
+        </Button>
       </div>
       <Dialog aria-label="Login form" isOpen={openModal === 'login'}>
         <div>
-          <button onClick={() => setOpenModal('none')}>Close</button>
+          <Button intent="secondary" onClick={() => setOpenModal('none')}>
+            Close
+          </Button>
         </div>
         <h3>Login</h3>
         <AuthForm onSubmit={login} buttonText="Login" />
       </Dialog>
       <Dialog aria-label="Registration form" isOpen={openModal === 'register'}>
         <div>
-          <button onClick={() => setOpenModal('none')}>Close</button>
+          <Button intent="secondary" onClick={() => setOpenModal('none')}>
+            Close
+          </Button>
         </div>
         <h3>Register</h3>
         <AuthForm onSubmit={register} buttonText="Register" />

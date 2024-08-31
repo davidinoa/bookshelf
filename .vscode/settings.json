@@ -2,5 +2,9 @@
   "editor.fontFamily": "Dank Mono, Menlo, Monaco, 'Courier New', monospace",
   "gitlens.codeLens.enabled": false,
   "supermaven.allowGitignore": true,
-  "supermaven.enableJumpSuggestions": false
+  "supermaven.enableJumpSuggestions": false,
+  "tailwindCSS.experimental.classRegex": [
+    ["cva\\(([^)]*)\\)", "[\"'`]([^\"'`]*).*?[\"'`]"],
+    ["cx\\(([^)]*)\\)", "(?:'|\"|`)([^']*)(?:'|\"|`)"]
+  ]
 }
