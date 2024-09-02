@@ -14,8 +14,8 @@ import { CircleButton, Dialog } from './lib'
 
 type Fn = (...args: any[]) => any
 
-function callAll(...fns: Fn[]) {
-  return (...args: any[]) => fns.forEach((fn) => fn(...args))
+function callAll(...fns: (Fn | undefined)[]) {
+  return (...args: any[]) => fns.forEach((fn) => fn && fn(...args))
 }
 
 type ModalContextType = {
@@ -54,7 +54,7 @@ function ModalOpenButton({ children }: { children: ReactElement }) {
   })
 }
 
-function ModalContentsBase(props: DialogProps) {
+function ModalContentsBase(props: DialogProps & { className?: string }) {
   const { isOpen, setIsOpen } = useModalContext()
   return (
     <Dialog isOpen={isOpen} onDismiss={() => setIsOpen(false)} {...props}>
@@ -69,8 +69,8 @@ function ModalContents({
   ...props
 }: DialogProps & { title?: string }) {
   return (
-    <ModalContentsBase {...props}>
-      <div className="flex flex-end">
+    <ModalContentsBase className="p-6 pb-14" {...props}>
+      <div className="flex justify-end">
         <ModalDismissButton>
           <CircleButton>
             <VisuallyHidden>Close</VisuallyHidden>
@@ -78,7 +78,9 @@ function ModalContents({
           </CircleButton>
         </ModalDismissButton>
       </div>
-      <h3 className="text-center text-[2em]">{title}</h3>
+      <h3 className="text-center text-[2em] font-medium leading-tight mb-2">
+        {title}
+      </h3>
       {children}
     </ModalContentsBase>
   )

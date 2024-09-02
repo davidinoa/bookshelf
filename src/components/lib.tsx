@@ -1,20 +1,32 @@
+import { cn } from '@/lib/utils'
 import { Dialog as ReachDialog, type DialogProps } from '@reach/dialog'
 import type { ComponentProps } from 'react'
+import { FaSpinner } from 'react-icons/fa'
+
+export function Spinner() {
+  return <FaSpinner className="animate-spin" aria-label="loading" />
+}
 
 export function CircleButton(props: ComponentProps<'button'>) {
   return (
     <button
       {...props}
-      className="rounded-[30px] p-0 size-10 leading-none flex items-center justify-center bg-white text-[#434449] border border-[#f1f1f4] cursor-pointer"
+      className={cn(
+        'rounded-[30px] p-0 size-10 leading-none flex items-center justify-center bg-white text-text border border-gray10 cursor-pointer',
+        props.className,
+      )}
     />
   )
 }
 
-export function Dialog(props: DialogProps) {
+export function Dialog(props: DialogProps & { className?: string }) {
   return (
     <ReachDialog
       {...props}
-      className="max-w-[450px] rounded-[3px] pb-[3.5em] shadow-[0_10px_30px_-5px_rgba(0,0,0,0.2)] my-[20vh] mx-auto max-lg:w-full max-lg:my-[10vh] max-lg:mx-auto"
+      className={cn(
+        'max-w-[450px] rounded-md !pb-[3.5em] shadow-lg mx-auto !w-full',
+        props.className,
+      )}
     />
   )
 }
@@ -23,11 +35,16 @@ export function Input(props: ComponentProps<'input'>) {
   return (
     <input
       {...props}
-      className="rounded-[3px] border border-[#f1f1f4] px-[12px] py-[8px]"
+      className={cn(
+        'rounded-md border border-gray10 px-3 py-2 bg-gray',
+        props.className,
+      )}
     />
   )
 }
 
 export function FormGroup(props: ComponentProps<'div'>) {
-  return <div {...props} className="flex flex-col" />
+  return (
+    <div {...props} className={cn('flex flex-col w-full', props.className)} />
+  )
 }

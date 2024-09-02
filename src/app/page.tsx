@@ -1,19 +1,14 @@
 'use client'
 
 import '@reach/dialog/styles.css'
-import { useState } from 'react'
 import Logo from '@/components/logo'
 import AuthForm from '@/components/auth-form'
 import Button from '@/components/button'
-import Dialog from '@reach/dialog'
-
-type ModalState = 'login' | 'register' | 'none'
+import { Modal, ModalContents, ModalOpenButton } from '@/components/modal'
 
 type AuthFormData = { username: string; password: string }
 
 export default function Home() {
-  const [openModal, setOpenModal] = useState<ModalState>('none')
-
   function login(formData: AuthFormData) {
     console.log('login', formData)
   }
@@ -23,37 +18,32 @@ export default function Home() {
   }
 
   return (
-    <div>
+    <div className="flex flex-col items-center justify-center h-screen w-full">
       <Logo width={80} height={80} />
-      <h1>Bookshelf</h1>
-      <div>
-        <Button intent="primary" onClick={() => setOpenModal('login')}>
-          Login
-        </Button>
+      <h1 className="text-[calc(1.375rem+1.5vw)] font-medium leading-tight mb-2 mt-0">
+        Bookshelf
+      </h1>
+      <div className="grid grid-cols-2 gap-3">
+        <Modal>
+          <ModalOpenButton>
+            <Button>Login</Button>
+          </ModalOpenButton>
+          <ModalContents aria-label="Login form" title="Login">
+            <AuthForm onSubmit={login} submitButton={<Button>Login</Button>} />
+          </ModalContents>
+        </Modal>
+        <Modal>
+          <ModalOpenButton>
+            <Button intent="secondary">Register</Button>
+          </ModalOpenButton>
+          <ModalContents aria-label="Registration form" title="Register">
+            <AuthForm
+              onSubmit={register}
+              submitButton={<Button intent="secondary">Register</Button>}
+            />
+          </ModalContents>
+        </Modal>
       </div>
-      <div>
-        <Button intent="secondary" onClick={() => setOpenModal('register')}>
-          Register
-        </Button>
-      </div>
-      <Dialog aria-label="Login form" isOpen={openModal === 'login'}>
-        <div>
-          <Button intent="secondary" onClick={() => setOpenModal('none')}>
-            Close
-          </Button>
-        </div>
-        <h3>Login</h3>
-        <AuthForm onSubmit={login} buttonText="Login" />
-      </Dialog>
-      <Dialog aria-label="Registration form" isOpen={openModal === 'register'}>
-        <div>
-          <Button intent="secondary" onClick={() => setOpenModal('none')}>
-            Close
-          </Button>
-        </div>
-        <h3>Register</h3>
-        <AuthForm onSubmit={register} buttonText="Register" />
-      </Dialog>
     </div>
   )
 }

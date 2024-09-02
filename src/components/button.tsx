@@ -6,8 +6,8 @@ const classes = cva(
   {
     variants: {
       intent: {
-        primary: 'bg-[#3f51b5] text-white',
-        secondary: 'bg-[#f1f2f7] text-[#434449]',
+        primary: 'bg-indigo text-white',
+        secondary: 'bg-gray text-text',
       },
     },
     defaultVariants: {
@@ -17,13 +17,9 @@ const classes = cva(
 )
 
 type Props = {
-  intent: 'primary' | 'secondary'
+  intent?: 'primary' | 'secondary'
 } & ComponentProps<'button'>
 
-export default function Button({ intent, children, ...props }: Props) {
-  return (
-    <button className={classes({ intent })} {...props}>
-      {children}
-    </button>
-  )
+export default function Button({ intent = 'primary', ...props }: Props) {
+  return <button className={classes({ intent })} {...props} />
 }

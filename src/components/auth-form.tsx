@@ -1,11 +1,12 @@
-import { type FormEvent } from 'react'
+import { type FormEvent, type ReactElement } from 'react'
+import { FormGroup, Input } from './lib'
 
 type Props = {
   onSubmit: (formData: { username: string; password: string }) => void
-  buttonText: string
+  submitButton: ReactElement
 }
 
-export default function AuthForm({ onSubmit, buttonText }: Props) {
+export default function AuthForm({ onSubmit, submitButton }: Props) {
   function handleSubmit(e: FormEvent<HTMLFormElement>) {
     e.preventDefault()
     const formElements = e.currentTarget.elements
@@ -24,16 +25,18 @@ export default function AuthForm({ onSubmit, buttonText }: Props) {
   }
 
   return (
-    <form onSubmit={handleSubmit}>
-      <div>
+    <form onSubmit={handleSubmit} className="flex flex-col items-stretch">
+      <FormGroup className="my-[10px] mx-auto max-w-[300px]">
         <label htmlFor="username">Username</label>
-        <input id="username" />
-      </div>
-      <div>
+        <Input id="username" />
+      </FormGroup>
+      <FormGroup className="my-[10px] mx-auto max-w-[300px]">
         <label htmlFor="password">Password</label>
-        <input id="password" type="password" />
+        <Input id="password" type="password" />
+      </FormGroup>
+      <div className={'my-[10px] mx-auto w-full max-w-[300px]'}>
+        {submitButton}
       </div>
-      <button type="submit">{buttonText}</button>
     </form>
   )
 }

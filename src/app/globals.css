@@ -11,4 +11,5 @@ body {
   color: var(--foreground);
   background: var(--background);
   font-synthesis: none;
+  font-family: var(--font-geist-sans);
 }
