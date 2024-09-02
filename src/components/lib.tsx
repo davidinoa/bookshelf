@@ -48,3 +48,15 @@ export function FormGroup(props: ComponentProps<'div'>) {
     <div {...props} className={cn('flex flex-col w-full', props.className)} />
   )
 }
+
+export function BookList(props: ComponentProps<'ul'>) {
+  return (
+    <ul
+      {...props}
+      className={cn(
+        'list-none p-0 grid-rows-[repeat(auto-fill,minmax(100px,1fr))] gap-[1em]',
+        props.className,
+      )}
+    />
+  )
+}
