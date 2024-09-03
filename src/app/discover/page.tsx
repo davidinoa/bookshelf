@@ -4,6 +4,7 @@ import BookRow from '@/components/book-row'
 import { BookList, Input, Spinner } from '@/components/lib'
 import type { Book } from '@/types'
 import { Tooltip } from '@reach/tooltip'
+import { useEffect } from 'react'
 import { FaSearch } from 'react-icons/fa'
 
 export default function DiscoverPage() {
@@ -12,6 +13,19 @@ export default function DiscoverPage() {
   }
   const isLoading = false
   const isSuccess = false
+
+  async function getUser() {
+    const response = await fetch('https://api.example.com/user')
+    const user = (await response.json()) as {
+      firstName: string
+      lastName: string
+    }
+    return user
+  }
+
+  useEffect(() => {
+    getUser()
+  }, [])
 
   function handleSearchSubmit(_event: React.FormEvent<HTMLFormElement>) {}
 
