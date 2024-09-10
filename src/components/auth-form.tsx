@@ -1,8 +1,9 @@
 import { type FormEvent, type ReactElement } from 'react'
 import { FormGroup, Input } from './lib'
+import type { AuthFormData } from '@/types'
 
 type Props = {
-  onSubmit: (formData: { username: string; password: string }) => void
+  onSubmit: (formData: AuthFormData) => void
   submitButton: ReactElement
 }
 
@@ -26,15 +27,15 @@ export default function AuthForm({ onSubmit, submitButton }: Props) {
 
   return (
     <form onSubmit={handleSubmit} className="flex flex-col items-stretch">
-      <FormGroup className="my-[10px] mx-auto max-w-[300px]">
+      <FormGroup className="mx-auto my-[10px] max-w-[300px]">
         <label htmlFor="username">Username</label>
         <Input id="username" />
       </FormGroup>
-      <FormGroup className="my-[10px] mx-auto max-w-[300px]">
+      <FormGroup className="mx-auto my-[10px] max-w-[300px]">
         <label htmlFor="password">Password</label>
         <Input id="password" type="password" />
       </FormGroup>
-      <div className={'my-[10px] mx-auto w-full max-w-[300px]'}>
+      <div className={'mx-auto my-[10px] w-full max-w-[300px]'}>
         {submitButton}
       </div>
     </form>
