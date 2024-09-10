@@ -11,3 +11,10 @@ export const bookSchema = z.object({
 })
 
 export type Book = z.infer<typeof bookSchema>
+
+const authFormDataSchema = z.object({
+  username: z.string(),
+  password: z.string(),
+})
+
+export type AuthFormData = z.infer<typeof authFormDataSchema>
