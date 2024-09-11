@@ -1,5 +1,5 @@
 import * as booksDB from './books'
-import { CustomError } from './errors'
+import { CustomError } from '../errors'
 
 type ListItem = {
   bookId: string

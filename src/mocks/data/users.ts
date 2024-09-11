@@ -1,13 +1,5 @@
 import type { AuthFormData } from '@/types'
-import { CustomError } from './errors'
-
-declare global {
-  interface Window {
-    __bookshelf: {
-      purgeUsers: () => void
-    }
-  }
-}
+import { CustomError } from '../errors'
 
 type User = {
   id: string
