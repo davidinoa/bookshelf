@@ -3,31 +3,43 @@
 import BookRow from '@/components/book-row'
 import { BookList, Input, Spinner } from '@/components/lib'
 import type { Book } from '@/types'
+import { client } from '@/utils/api-client'
 import { Tooltip } from '@reach/tooltip'
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 import { FaSearch } from 'react-icons/fa'
 
+type SearchStatus = 'idle' | 'loading' | 'success' | 'error'
+
 export default function DiscoverPage() {
-  const data = {
-    books: [] as Book[],
-  }
+  const [query, setQuery] = useState('')
+  const [searchStatus, setSearchStatus] = useState<SearchStatus>('idle')
+  const [data, setData] = useState<{ books: Book[] }>({ books: [] })
+  const [queried, setQueried] = useState(false)
+
+  useEffect(() => {
+    if (!queried) return
+    window
+      .fetch(
+        `${process.env.NEXT_PUBLIC_REACT_APP_API_URL}/books?query=${query}`,
+      )
+      .then((response) => {
+        console.log(response)
+      })
+  }, [queried, query])
+
   const isLoading = false
   const isSuccess = false
 
-  async function getUser() {
-    const response = await fetch('https://api.example.com/user')
-    const user = (await response.json()) as {
-      firstName: string
-      lastName: string
+  function handleSearchSubmit(event: React.FormEvent<HTMLFormElement>) {
+    event.preventDefault()
+    const formElements = event.currentTarget.elements
+    const searchElement = formElements.namedItem('search')
+    if (!(searchElement instanceof HTMLInputElement)) {
+      throw new Error('Expected search input element')
     }
-    return user
+    setQuery(searchElement.value)
+    setQueried(true)
   }
-
-  useEffect(() => {
-    getUser()
-  }, [])
-
-  function handleSearchSubmit(_event: React.FormEvent<HTMLFormElement>) {}
 
   return (
     <div className="m-auto w-[90vw] max-w-[800px] py-10">
