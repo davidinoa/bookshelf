@@ -19,12 +19,8 @@ export default function DiscoverPage() {
   useEffect(() => {
     if (!queried) return
     setSearchStatus('loading')
-    window
-      .fetch(
-        `${process.env.NEXT_PUBLIC_API_URL}/books?query=${encodeURIComponent(query)}`,
-      )
-      .then(async (response) => {
-        const data = await response.json()
+    client(`books?query=${encodeURIComponent(query)}`)
+      .then((data) => {
         setData(data)
         setSearchStatus('success')
       })

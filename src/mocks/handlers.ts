@@ -5,11 +5,6 @@ import * as listItemsDB from './data/list-items'
 import type { Book } from '@/types'
 import { CustomError } from './errors'
 
-type User = {
-  firstName: string
-  lastName: string
-}
-
 const apiUrl = process.env.NEXT_PUBLIC_API_URL
 
 export const handlers = [
