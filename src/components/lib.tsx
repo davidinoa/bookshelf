@@ -12,7 +12,7 @@ export function CircleButton(props: ComponentProps<'button'>) {
     <button
       {...props}
       className={cn(
-        'rounded-[30px] p-0 size-10 leading-none flex items-center justify-center bg-white text-text border border-gray10 cursor-pointer',
+        'flex size-10 cursor-pointer items-center justify-center rounded-[30px] border border-gray10 bg-white p-0 leading-none text-text',
         props.className,
       )}
     />
@@ -24,7 +24,7 @@ export function Dialog(props: DialogProps & { className?: string }) {
     <ReachDialog
       {...props}
       className={cn(
-        'max-w-[450px] rounded-md !pb-[3.5em] shadow-lg mx-auto !w-full',
+        'mx-auto !w-full max-w-[450px] rounded-md !pb-[3.5em] shadow-lg',
         props.className,
       )}
     />
@@ -36,7 +36,7 @@ export function Input(props: ComponentProps<'input'>) {
     <input
       {...props}
       className={cn(
-        'rounded-md border border-gray10 px-3 py-2 bg-gray',
+        'rounded-md border border-gray10 bg-gray px-3 py-2',
         props.className,
       )}
     />
@@ -45,7 +45,7 @@ export function Input(props: ComponentProps<'input'>) {
 
 export function FormGroup(props: ComponentProps<'div'>) {
   return (
-    <div {...props} className={cn('flex flex-col w-full', props.className)} />
+    <div {...props} className={cn('flex w-full flex-col', props.className)} />
   )
 }
 
@@ -54,7 +54,7 @@ export function BookList(props: ComponentProps<'ul'>) {
     <ul
       {...props}
       className={cn(
-        'list-none p-0 grid-rows-[repeat(auto-fill,minmax(100px,1fr))] gap-[1em]',
+        'grid list-none grid-rows-[repeat(auto-fill,minmax(100px,1fr))] gap-[1em] p-0',
         props.className,
       )}
     />
