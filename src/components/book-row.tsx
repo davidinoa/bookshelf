@@ -9,21 +9,21 @@ export default function BookRow({ book }: Props) {
   const { title, author, coverImageUrl, publisher, synopsis } = book
   const id = `book-row-${book.id}`
   return (
-    <div className="relative flex items-center justify-end">
+    <div className="@container relative flex items-center justify-end">
       <div
         aria-labelledby={id}
-        className="hover:box-shadow-md focus:box-shadow-md grid min-h-[270px] grow-[2] grid-cols-[140px_1fr] gap-5 rounded-md border border-gray20 p-5 text-text hover:text-inherit hover:no-underline focus:text-inherit focus:no-underline"
+        className="hover:box-shadow-md focus:box-shadow-md grid min-h-[270px] grow-[2] grid-cols-[100px_1fr] gap-5 rounded-md border border-gray20 p-5 text-text hover:text-inherit hover:no-underline focus:text-inherit focus:no-underline md:grid-cols-[140px_1fr]"
       >
-        <div className="relativew-[100px] md:w-[140px]">
+        <div className="relative w-[100px] md:w-[140px]">
           <Image
             fill
             src={coverImageUrl}
             alt={`${title} book cover`}
-            className="max-h-full w-full rounded-md"
+            className="w-full rounded-md object-contain"
           />
         </div>
         <div className="flex-1">
-          <div className="flex justify-between">
+          <div className="@md:flex-row flex flex-col justify-between">
             <div className="flex-1">
               <h2 id={id} className="m-0 text-xl text-indigo">
                 {title}
