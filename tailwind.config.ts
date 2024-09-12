@@ -1,4 +1,5 @@
 import type { Config } from 'tailwindcss'
+import containerQueriesPlugin from '@tailwindcss/container-queries'
 
 const config: Config = {
   content: [
@@ -9,7 +10,7 @@ const config: Config = {
   theme: {
     screens: {
       sm: { max: '991px' },
-      md: { min: '992px', max: '1199px' },
+      md: { min: '992px' },
       lg: { min: '1200px' },
     },
     extend: {
@@ -34,6 +35,6 @@ const config: Config = {
       },
     },
   },
-  plugins: [],
+  plugins: [containerQueriesPlugin],
 }
 export default config

@@ -18,17 +18,21 @@ export default function DiscoverPage() {
 
   useEffect(() => {
     if (!queried) return
+    setSearchStatus('loading')
     window
       .fetch(
-        `${process.env.NEXT_PUBLIC_REACT_APP_API_URL}/books?query=${query}`,
+        `${process.env.NEXT_PUBLIC_API_URL}/books?query=${encodeURIComponent(query)}`,
       )
-      .then((response) => {
-        console.log(response)
+      .then(async (response) => {
+        const data = await response.json()
+        setData(data)
+        setSearchStatus('success')
       })
+      .catch(() => setSearchStatus('error'))
   }, [queried, query])
 
-  const isLoading = false
-  const isSuccess = false
+  const isLoading = searchStatus === 'loading'
+  const isSuccess = searchStatus === 'success'
 
   function handleSearchSubmit(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault()
@@ -44,19 +48,21 @@ export default function DiscoverPage() {
   return (
     <div className="m-auto w-[90vw] max-w-[800px] py-10">
       <form onSubmit={handleSearchSubmit}>
-        <Input id="search" placeholder="Search books..." className="w-full" />
-        <Tooltip label="Search Books">
-          <label htmlFor="search">
-            <button className="relative -ml-[35px] border-0 bg-transparent">
-              {isLoading ? <Spinner /> : <FaSearch aria-label="search" />}
-            </button>
-          </label>
-        </Tooltip>
+        <div className="flex items-center">
+          <Input id="search" placeholder="Search books..." className="w-full" />
+          <Tooltip label="Search Books">
+            <label htmlFor="search">
+              <button className="relative -ml-[35px] border-0 bg-transparent">
+                {isLoading ? <Spinner /> : <FaSearch aria-label="search" />}
+              </button>
+            </label>
+          </Tooltip>
+        </div>
       </form>
 
       {isSuccess ? (
         data?.books?.length ? (
-          <BookList>
+          <BookList className="mt-4">
             {data.books.map((book) => (
               <li key={book.id} aria-label={book.title}>
                 <BookRow book={book} />

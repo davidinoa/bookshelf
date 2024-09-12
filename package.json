@@ -14,6 +14,7 @@
     "@reach/tabs": "^0.17.0",
     "@reach/tooltip": "^0.17.0",
     "@reach/visually-hidden": "^0.17.0",
+    "@tailwindcss/container-queries": "^0.1.1",
     "class-variance-authority": "^0.7.0",
     "clsx": "^2.1.1",
     "match-sorter": "^6.3.4",
