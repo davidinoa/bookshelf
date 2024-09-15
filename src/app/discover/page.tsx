@@ -6,17 +6,23 @@ import type { Book } from '@/types'
 import { client } from '@/utils/api-client'
 import { Tooltip } from '@reach/tooltip'
 import { useEffect, useState } from 'react'
-import { FaSearch } from 'react-icons/fa'
+import { FaSearch, FaTimes } from 'react-icons/fa'
 
 type SearchStatus = 'idle' | 'loading' | 'success' | 'error'
+
+type Error = {
+  message: string
+}
 
 export default function DiscoverPage() {
   const [query, setQuery] = useState('')
   const [searchStatus, setSearchStatus] = useState<SearchStatus>('idle')
   const [data, setData] = useState<{ books: Book[] }>({ books: [] })
+  const [error, setError] = useState<Error | null>(null)
   const [queried, setQueried] = useState(false)
 
   useEffect(() => {
+    setError(null)
     if (!queried) return
     setSearchStatus('loading')
     client(`books?query=${encodeURIComponent(query)}`)
@@ -24,11 +30,15 @@ export default function DiscoverPage() {
         setData(data)
         setSearchStatus('success')
       })
-      .catch(() => setSearchStatus('error'))
+      .catch((err) => {
+        setError(err)
+        setSearchStatus('error')
+      })
   }, [queried, query])
 
   const isLoading = searchStatus === 'loading'
   const isSuccess = searchStatus === 'success'
+  const isError = searchStatus === 'error'
 
   function handleSearchSubmit(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault()
@@ -48,13 +58,26 @@ export default function DiscoverPage() {
           <Input id="search" placeholder="Search books..." className="w-full" />
           <Tooltip label="Search Books">
             <label htmlFor="search">
-              <button className="relative -ml-[35px] border-0 bg-transparent">
-                {isLoading ? <Spinner /> : <FaSearch aria-label="search" />}
+              <button className="relative -ml-[35px] mt-1 border-0 bg-transparent">
+                {isLoading ? (
+                  <Spinner />
+                ) : isError ? (
+                  <FaTimes aria-label="error" className="text-danger" />
+                ) : (
+                  <FaSearch aria-label="search" />
+                )}
               </button>
             </label>
           </Tooltip>
         </div>
       </form>
+
+      {isError && error ? (
+        <div className="text-danger">
+          <p>There was an error:</p>
+          <pre>{error.message}</pre>
+        </div>
+      ) : null}
 
       {isSuccess ? (
         data?.books?.length ? (

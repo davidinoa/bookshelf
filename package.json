@@ -19,6 +19,7 @@
     "clsx": "^2.1.1",
     "match-sorter": "^6.3.4",
     "next": "15.0.0-canary.85",
+    "node-match-path": "^0.6.3",
     "react": "19.0.0-rc-14a4699f-20240725",
     "react-dom": "19.0.0-rc-14a4699f-20240725",
     "react-icons": "^5.3.0",
